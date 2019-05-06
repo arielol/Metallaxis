@@ -978,6 +978,41 @@ class MetallaxisGuiClass(gui_base_object, gui_window_object):
 	def reload_generate_variant_graphic(self):
 		self.generate_variant_graphic(True)
 
+	def zoom_out_variant_graphic(self):
+		max_pos = int(self.graphics_max_pos_textin.text())
+		min_pos = int(self.graphics_min_pos_textin.text())
+
+		new_max_pos = max_pos + 10000
+		new_min_pos = min_pos - 10000
+
+		# disable zooming button if requested zoom would breach ENSEMBL API limit
+		if (new_max_pos - new_min_pos) >  (5000000 - 1):
+			self.zoom_out_btn.setEnabled(False)
+			return
+		else:
+			self.zoom_out_btn.setEnabled(True)
+
+		self.graphics_min_pos_textin.setText(str(int(new_min_pos)))
+		self.graphics_max_pos_textin.setText(str(int(new_max_pos)))
+		self.generate_variant_graphic(True)
+
+	def zoom_in_variant_graphic(self):
+		max_pos = int(self.graphics_max_pos_textin.text())
+		min_pos = int(self.graphics_min_pos_textin.text())
+
+		new_max_pos = max_pos - 10000
+		new_min_pos = min_pos + 10000
+
+		# disable zooming button if requested zoom would be too close to be useful
+		if new_min_pos < 1 or (new_max_pos - new_min_pos) < 100:
+			self.zoom_in_btn.setEnabled(False)
+			return
+		else:
+			self.zoom_in_btn.setEnabled(True)
+
+		self.graphics_min_pos_textin.setText(str(int(new_min_pos)))
+		self.graphics_max_pos_textin.setText(str(int(new_max_pos)))
+		self.generate_variant_graphic(True)
 
 	def generate_variant_graphic(self, read_pos_input=False):
 		current_row = self.viewer_tab_table_widget.currentRow()
@@ -1060,9 +1095,16 @@ class MetallaxisGuiClass(gui_base_object, gui_window_object):
 		# reduce length of request if it will fail API call due to size
 		if (max_pos - min_pos) > (5000000 - 1):
 			max_pos = min_pos + (5000000 - 1)
+			# if length already too big dont allow further zooming out
+			self.zoom_out_btn.setEnabled(False)
+		else:
+			self.zoom_out_btn.setEnabled(True)
 
-		if min_pos < 0:
-			min_pos = 0
+		# if massivly zoomed already dont allow further zooming
+		if (max_pos - min_pos) < 100:
+			self.zoom_in_btn.setEnabled(False)
+		else:
+			self.zoom_in_btn.setEnabled(True)
 
 		self.graphics_max_pos_textin.setText(str(max_pos))
 		self.graphics_min_pos_textin.setText(str(min_pos))
@@ -1402,6 +1444,8 @@ class MetallaxisGuiClass(gui_base_object, gui_window_object):
 		self.view_variant_btn.clicked.connect(self.generate_variant_graphic)
 		self.graphics_hide_view_btn.clicked.connect(self.hide_graphics_view)
 		self.graphics_reload_btn.clicked.connect(self.reload_generate_variant_graphic)
+		self.zoom_out_btn.clicked.connect(self.zoom_out_variant_graphic)
+		self.zoom_in_btn.clicked.connect(self.zoom_in_variant_graphic)
 		self.export_svg_toolbtn.clicked.connect(self.save_svg)
 
 		metadata_sql_result = pd.read_sql_query("SELECT DISTINCT Tag,Result FROM metadata", sqlite_connection)

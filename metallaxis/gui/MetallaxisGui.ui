@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>883</width>
+    <width>884</width>
     <height>596</height>
    </rect>
   </property>
@@ -107,7 +107,7 @@ background-color: #172044;
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <property name="iconSize">
        <size>
@@ -269,8 +269,8 @@ background-color: #172044;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>775</width>
-             <height>530</height>
+             <width>776</width>
+             <height>527</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -298,8 +298,8 @@ background-color: #172044;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>747</width>
-                   <height>76</height>
+                   <width>748</width>
+                   <height>77</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_8"/>
@@ -522,8 +522,8 @@ background-color: #172044;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>769</width>
-                 <height>89</height>
+                 <width>770</width>
+                 <height>82</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -710,6 +710,45 @@ background-color: #172044;
                   </spacer>
                  </item>
                  <item>
+                  <widget class="QPushButton" name="zoom_in_btn">
+                   <property name="acceptDrops">
+                    <bool>false</bool>
+                   </property>
+                   <property name="toolTip">
+                    <string/>
+                   </property>
+                   <property name="text">
+                    <string notr="true">+</string>
+                   </property>
+                   <property name="shortcut">
+                    <string>+</string>
+                   </property>
+                   <property name="flat">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="zoom_out_btn">
+                   <property name="text">
+                    <string notr="true">−</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
                   <widget class="QToolButton" name="export_svg_toolbtn">
                    <property name="text">
                     <string>...</string>
@@ -789,7 +828,7 @@ background-color: #172044;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>883</width>
+     <width>884</width>
      <height>22</height>
     </rect>
    </property>
