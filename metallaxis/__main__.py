@@ -869,12 +869,16 @@ class MetallaxisGuiClass(gui_base_object, gui_window_object):
 			self.filter_box.setEnabled(False)
 			self.show_chrom_list_btn.setEnabled(False)
 			self.filter_label.setText("Filter VCF Table : e.g SELECT * FROM df WHERE CHROM==12;")
+			self.hide_column_list()
 		else:
 			self.filter_box.setEnabled(True)
 			self.show_chrom_list_btn.setEnabled(True)
 			self.filter_label.setText("Filter VCF Table (e.g CHROM 1,3,5)")
 
 
+	def hide_column_list(self):
+		self.col_selection_scroll_area.setMaximumHeight(0)
+		self.show_chrom_list_btn.setText("Show Column Selection")
 	def show_column_list(self):
 		current_height = self.col_selection_scroll_area.maximumHeight()
 		if current_height == 0:
@@ -883,8 +887,7 @@ class MetallaxisGuiClass(gui_base_object, gui_window_object):
 
 			self.show_chrom_list_btn.setText("Hide Column Selection")
 		else:
-			self.col_selection_scroll_area.setMaximumHeight(0)
-			self.show_chrom_list_btn.setText("Show Column Selection")
+		    self.hide_column_list()
 
 	def deselect_all_cols(self):
 		for col in checkbox_list:
