@@ -10,7 +10,7 @@ import re
 import sys
 from shutil import copyfile  # for save analysis
 
-import magic  # to detect filetype from file header
+# import magic  # to detect filetype from file header
 import numpy as np  # to handle arrays and NaN
 import pandas as pd  # to handle dataframes
 import sqlite3  # handle sqlite db
@@ -38,7 +38,7 @@ from PyQt5 import QtCore, QtGui, QtSvg
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 # Import SVG Drawing Classes
-from metallaxis import SVGClasses
+import SVGClasses
 
 # for plotting graphs
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -347,7 +347,8 @@ def parse_vcf(vcf_input_filename):
 	if not file_is_valid:
 		return
 
-	vcf_filetype = magic.from_file(vcf_input_filename)
+	vcf_filetype = "Variant Call Format"
+	# vcf_filetype = magic.from_file(vcf_input_filename)
 	# Decompress selected vcf
 	if "XZ" in vcf_filetype:
 		MetallaxisGui.detected_filetype_label.setText("xz compressed VCF")
@@ -866,9 +867,11 @@ class MetallaxisGuiClass(gui_base_object, gui_window_object):
 	def toggle_sql_mode(self):
 		if self.sql_mode_checkBox.isChecked():
 			self.filter_box.setEnabled(False)
+			self.show_chrom_list_btn.setEnabled(False)
 			self.filter_label.setText("Filter VCF Table : e.g SELECT * FROM df WHERE CHROM==12;")
 		else:
 			self.filter_box.setEnabled(True)
+			self.show_chrom_list_btn.setEnabled(True)
 			self.filter_label.setText("Filter VCF Table (e.g CHROM 1,3,5)")
 
 
@@ -1340,6 +1343,8 @@ class MetallaxisGuiClass(gui_base_object, gui_window_object):
 		self.view_variant_btn.setEnabled(True)
 		self.chrom_selection_stat_comboBox.setEnabled(True)
 		self.chrom_selection_label.setEnabled(True)
+		self.show_chrom_list_btn.setEnabled(True)
+		self.sql_mode_checkBox.setEnabled(True)
 
 		# get column numbers for ID, POS, etc.
 		self.progress_bar(47, "Extracting column data")

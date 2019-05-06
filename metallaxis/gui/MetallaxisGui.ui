@@ -383,6 +383,9 @@ background-color: #172044;
           </property>
           <item row="4" column="2">
            <widget class="QPushButton" name="show_chrom_list_btn">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Show Column Selection</string>
             </property>
@@ -461,6 +464,9 @@ background-color: #172044;
           </item>
           <item row="2" column="2">
            <widget class="QCheckBox" name="sql_mode_checkBox">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>SQL Mode</string>
             </property>
